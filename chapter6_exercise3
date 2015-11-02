@@ -1,0 +1,51 @@
+
+# --------------------------------------------
+#  Book:    R for beginners
+#  Chapter: 6
+#  Exercise #3
+#
+#  Participant's name: PHAN Ngoc-Danh
+# --------------------------------------------
+
+setwd(dir = "C:/R")
+
+Benthic <- read.table("./Data/01 Pre work/R for beginners/RIKZ.txt", header = TRUE)
+
+# rem. :
+# columns = site + 75 species + 13 explanatory variables
+# 45 sites
+# str(object = Benthic)
+
+# Sites <- Benthic[ , 1]
+Species <- Benthic[ , 2:76]
+# ExplanatoryVariables <- Benthic[ , 77:89]
+
+# Sites
+# Species
+# ExplanatoryVariables
+
+
+
+# default Sites = < all > (45)
+StatsOnBenthic <- function(Sites = c(1:dim(Species)[1]), StatType) {
+  
+  if (StatType == "Total Abundance") {
+    results <- rowSums(Species[Sites, ], na.rm = TRUE) } else
+      
+      if (StatType == "Richness") {
+        results <- rowSums(Species[Sites, ] > 0, na.rm = TRUE) } else
+          
+          if (StatType == "Shannon") {
+            Abundance <- rowSums(Species[Sites, ], na.rm = TRUE)
+            SpeciesProportion <- Species[Sites, ] / Abundance
+            results <- -rowSums(SpeciesProportion * log10(SpeciesProportion), na.rm = TRUE) } else
+              
+              stop("Valid StatType values are: \'Total Abundance\', \'Richness\' and \'Shannon\'")
+  
+  results
+}
+
+# call examples: StatsOnBenthic(Sites = c(1,2,3,45), StatType = "Total Abundance")
+#                StatsOnBenthic(Sites = c(1,2,3,45), StatType = "Richness")
+#                StatsOnBenthic(Sites = c(1,2,3,45), StatType = "Shannon")
+#                StatsOnBenthic(, "Shannon")
