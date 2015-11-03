@@ -7,9 +7,9 @@
 #  Participant's name: PHAN Ngoc-Danh
 # --------------------------------------------
 
-setwd(dir = "C:/R")
+# setwd(dir = "C:/R")
 
-Benthic <- read.table("./Data/01 Pre work/R for beginners/RIKZ.txt", header = TRUE)
+Benthic <- read.table("RIKZ.txt", header = TRUE)
 
 # rem. :
 # columns = site + 75 species + 13 explanatory variables
